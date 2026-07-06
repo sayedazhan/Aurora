@@ -128,3 +128,6 @@
     @apply font-sans;
   }
 }
+* {
+  font-family: var(--font-inter), Inter, Arial, sans-serif;
+}
