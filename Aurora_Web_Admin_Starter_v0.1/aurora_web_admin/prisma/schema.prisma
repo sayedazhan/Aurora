@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  PENDING_KYC
+  ACTIVE
+  SUSPENDED
+  CLOSED
+}
+
+enum KycStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  APPROVED
+  REJECTED
+  MANUAL_REVIEW
+}
+
+enum MerchantStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REVIEW
+  REFUNDED
+}
+
+enum TransactionType {
+  P2P_SEND
+  REQUEST_PAYMENT
+  QR_PAYMENT
+  MERCHANT_PAYMENT
+  REFUND
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  phone        String?       @unique
+  fullName     String
+  handle       String        @unique
+  status       UserStatus    @default(PENDING_KYC)
+  kycStatus    KycStatus     @default(NOT_STARTED)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  wallets      Wallet[]
+  sent         Transaction[] @relation("sender")
+  received     Transaction[] @relation("receiver")
+  groupMembers GroupMember[]
+  auditLogs    AuditLog[]
+}
+
+model Wallet {
+  id          String        @id @default(cuid())
+  userId      String
+  label       String        @default("Main Wallet")
+  currency    String        @default("AUD")
+  balanceCents Int          @default(0)
+  maskedRef   String
+  createdAt   DateTime      @default(now())
+  user        User          @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+
+  @@index([userId])
+}
+
+model Merchant {
+  id            String          @id @default(cuid())
+  businessName  String
+  abn           String?         @unique
+  contactEmail  String
+  status        MerchantStatus  @default(PENDING)
+  category      String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  stores        MerchantStore[]
+  transactions  Transaction[]
+}
+
+model MerchantStore {
+  id          String       @id @default(cuid())
+  merchantId  String
+  name        String
+  suburb      String
+  state       String
+  qrCode      String       @unique
+  createdAt   DateTime     @default(now())
+  merchant    Merchant     @relation(fields: [merchantId], references: [id])
+
+  @@index([merchantId])
+}
+
+model Transaction {
+  id             String            @id @default(cuid())
+  reference      String            @unique
+  type           TransactionType
+  status         TransactionStatus @default(PENDING)
+  amountCents    Int
+  currency       String            @default("AUD")
+  description    String?
+  senderId       String?
+  receiverId     String?
+  walletId       String?
+  merchantId     String?
+  createdAt      DateTime          @default(now())
+  completedAt    DateTime?
+  sender         User?             @relation("sender", fields: [senderId], references: [id])
+  receiver       User?             @relation("receiver", fields: [receiverId], references: [id])
+  wallet         Wallet?           @relation(fields: [walletId], references: [id])
+  merchant       Merchant?         @relation(fields: [merchantId], references: [id])
+  riskEvents     RiskEvent[]
+
+  @@index([createdAt])
+  @@index([status])
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([merchantId])
+}
+
+model Group {
+  id          String        @id @default(cuid())
+  name        String
+  purpose     String
+  createdAt   DateTime      @default(now())
+  members     GroupMember[]
+  expenses    Expense[]
+}
+
+model GroupMember {
+  id        String   @id @default(cuid())
+  groupId   String
+  userId    String
+  role      String   @default("member")
+  joinedAt  DateTime @default(now())
+  group     Group    @relation(fields: [groupId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([groupId, userId])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  groupId     String
+  title       String
+  amountCents Int
+  currency    String   @default("AUD")
+  paidBy      String
+  createdAt   DateTime @default(now())
+  group       Group    @relation(fields: [groupId], references: [id])
+}
+
+model RiskEvent {
+  id             String       @id @default(cuid())
+  transactionId  String?
+  level          RiskLevel
+  reason         String
+  status         String       @default("open")
+  createdAt      DateTime     @default(now())
+  transaction    Transaction? @relation(fields: [transactionId], references: [id])
+
+  @@index([level])
+  @@index([status])
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  email       String
+  name        String?
+  segment     String?
+  message     String?
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorUserId String?
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    Json?
+  createdAt   DateTime @default(now())
+  actor       User?    @relation(fields: [actorUserId], references: [id])
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
