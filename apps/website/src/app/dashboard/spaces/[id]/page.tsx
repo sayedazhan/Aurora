@@ -4,10 +4,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Calendar, Plus, Users, Wallet } from "lucide-react";
 import { getSpace, type Space } from "@/services/space.service";
+import { useAuth } from "@/hooks/useAuth";
+import InviteMemberForm from "@/features/spaces/components/InviteMemberForm";
+<div className="mt-8">
+  <MemberList />
+</div>
+import MemberList from "@/features/spaces/components/MemberList";
 
 export default function SpacePage() {
   const params = useParams();
   const id = params.id as string;
+  const { user } = useAuth();
 
   const [space, setSpace] = useState<Space | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,36 +38,20 @@ export default function SpacePage() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="p-6">
-        Loading Space...
-      </div>
-    );
+    return <div className="p-6">Loading Space...</div>;
   }
 
   if (!space) {
-    return (
-      <div className="p-6">
-        Space not found.
-      </div>
-    );
+    return <div className="p-6">Space not found.</div>;
   }
 
   return (
     <div className="p-6">
-
-      {/* Header */}
-
-      <div className="rounded-3xl bg-white p-8 shadow-sm border border-slate-200">
-
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="flex items-center gap-5">
-
-          <div className="text-6xl">
-            {space.emoji}
-          </div>
+          <div className="text-6xl">{space.emoji}</div>
 
           <div>
-
             <h1 className="text-4xl font-semibold tracking-tight">
               {space.name}
             </h1>
@@ -68,13 +59,10 @@ export default function SpacePage() {
             <p className="mt-2 text-slate-600">
               {space.description || "No description yet."}
             </p>
-
           </div>
-
         </div>
 
         <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-600">
-
           <div className="flex items-center gap-2">
             <Wallet size={18} />
             {space.currency}
@@ -84,61 +72,44 @@ export default function SpacePage() {
             <Calendar size={18} />
             {new Date(space.created_at).toLocaleDateString()}
           </div>
-
         </div>
-
       </div>
 
-      {/* Quick Actions */}
-
       <div className="mt-8 grid gap-4 md:grid-cols-3">
-
         <button className="rounded-2xl bg-slate-950 p-5 text-white">
           <Plus className="mx-auto mb-3" />
           Add Expense
         </button>
 
-        <button className="rounded-2xl bg-white border border-slate-200 p-5">
+        <button className="rounded-2xl border border-slate-200 bg-white p-5">
           <Users className="mx-auto mb-3" />
           Invite Members
         </button>
 
-        <button className="rounded-2xl bg-white border border-slate-200 p-5">
+        <button className="rounded-2xl border border-slate-200 bg-white p-5">
           Settle Up
         </button>
-
       </div>
 
-      {/* Workspace */}
+      {user?.id && (
+        <div className="mt-8">
+          <InviteMemberForm spaceId={space.id} invitedBy={user.id} />
+        </div>
+      )}
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
-
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
-
-          <h2 className="text-xl font-semibold">
-            Expenses
-          </h2>
-
-          <p className="mt-6 text-slate-500">
-            No expenses yet.
-          </p>
-
+          <h2 className="text-xl font-semibold">Expenses</h2>
+          <p className="mt-6 text-slate-500">No expenses yet.</p>
         </div>
 
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
-
-          <h2 className="text-xl font-semibold">
-            Aurora AI
-          </h2>
-
+          <h2 className="text-xl font-semibold">Aurora AI</h2>
           <p className="mt-6 text-slate-500">
             Ready to help organise this space.
           </p>
-
         </div>
-
       </div>
-
     </div>
   );
 }
