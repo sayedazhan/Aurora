@@ -7,6 +7,8 @@ import MemberCard from "./MemberCard";
 import {
   getSpaceMembers,
   inviteSpaceMember,
+  removeSpaceMember,
+  updateSpaceMemberRole,
   type SpaceMember,
 } from "@/services/member.service";
 
@@ -63,19 +65,59 @@ export default function MemberList({
     await loadMembers();
   }
 
+  async function handleRemoveMember(memberId: string) {
+    const confirmed = window.confirm(
+      "Are you sure you want to remove this member?"
+    );
+
+    if (!confirmed) return;
+
+    const { error } = await removeSpaceMember(memberId);
+
+    if (error) {
+      console.error("Remove member error:", error);
+      alert(error.message);
+      return;
+    }
+
+    await loadMembers();
+  }
+
+  async function handleChangeRole(
+    memberId: string,
+    role: string
+  ) {
+    const { error } = await updateSpaceMemberRole(
+      memberId,
+      role
+    );
+
+    if (error) {
+      console.error("Update role error:", error);
+      alert(error.message);
+      return;
+    }
+
+    await loadMembers();
+  }
+
   return (
     <>
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-semibold tracking-tight">Members</h2>
+            <h2 className="text-xl font-semibold tracking-tight">
+              Members
+            </h2>
 
             <p className="mt-1 text-sm text-slate-500">
               Manage people who can access this space.
             </p>
           </div>
 
-          <InviteMemberButton onClick={() => setInviteOpen(true)} />
+          <InviteMemberButton
+            onClick={() => setInviteOpen(true)}
+          />
         </div>
 
         <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-4">
@@ -84,7 +126,8 @@ export default function MemberList({
           </span>
 
           <span className="text-sm text-slate-500">
-            {members.length} {members.length === 1 ? "Member" : "Members"}
+            {members.length}{" "}
+            {members.length === 1 ? "Member" : "Members"}
           </span>
         </div>
 
@@ -93,11 +136,19 @@ export default function MemberList({
             <MemberCard
               key={member.id}
               firstName={
-                member.first_name ?? member.email?.split("@")[0] ?? "Member"
+                member.first_name ??
+                member.email?.split("@")[0] ??
+                "Member"
               }
               lastName={member.last_name ?? ""}
               role={member.role}
               status={member.status}
+              onRemove={() =>
+                handleRemoveMember(member.id)
+              }
+              onChangeRole={(role) =>
+                handleChangeRole(member.id, role)
+              }
             />
           ))}
         </div>

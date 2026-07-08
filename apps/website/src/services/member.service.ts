@@ -22,6 +22,22 @@ export async function getSpaceMembers(spaceId: string) {
     .eq("space_id", spaceId)
     .order("created_at", { ascending: true });
 }
+export async function removeSpaceMember(memberId: string) {
+  return supabase
+    .from("space_members")
+    .delete()
+    .eq("id", memberId);
+}
+export async function updateSpaceMemberRole(
+  memberId: string,
+  role: string
+) {
+  return supabase
+    .from("space_members")
+    .update({ role })
+    .eq("id", memberId);
+}
+
 
 export async function inviteSpaceMember({
   spaceId,

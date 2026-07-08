@@ -1,8 +1,12 @@
+import MemberActionsMenu from "./MemberActionsMenu";
+
 type MemberCardProps = {
   firstName: string;
   lastName: string;
   role: string;
   status: string;
+  onRemove?: () => void;
+  onChangeRole?: (role: string) => void;
 };
 
 export default function MemberCard({
@@ -10,6 +14,8 @@ export default function MemberCard({
   lastName,
   role,
   status,
+  onRemove,
+  onChangeRole,
 }: MemberCardProps) {
   const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`;
   const isPending = status === "Pending";
@@ -63,9 +69,12 @@ export default function MemberCard({
           </div>
         </div>
 
-        <button className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700">
-          ⋮
-        </button>
+        <MemberActionsMenu
+          status={status}
+          currentRole={role}
+          onRemove={onRemove}
+          onChangeRole={onChangeRole}
+        />
       </div>
     </div>
   );
