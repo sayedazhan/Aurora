@@ -65,3 +65,16 @@ Aurora
 ├── Settlements
 ├── Payments
 └── Aurora Assist
+
+
+In progress:
+
+- Members
+  - Member cards
+  - Invite member dialog
+  - Supabase-backed pending invitations
+  - Space-level member list
+- Expenses
+- Settlements
+- Payments
+- Aurora Assist

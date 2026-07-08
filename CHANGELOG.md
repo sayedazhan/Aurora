@@ -267,3 +267,31 @@ Aurora is a collaborative financial platform where people manage money together.
 ---
 
 _Last Updated: July 2026_
+# Sprint 5 – Member System
+
+**Status:** 🚧 In Progress
+
+## Completed
+
+- Built Member Card component
+- Built Member List component
+- Built Invite Member button
+- Built Invite Member dialog
+- Added first name, last name, email and role invite flow
+- Integrated Members section into Space Dashboard
+- Connected member invitations to Supabase
+- Added persistent pending invitations
+- Updated `space_members` table with:
+  - email
+  - first_name
+  - last_name
+  - status
+  - invited_by
+- Fixed nullable `user_id` for pending invites
+- Cleaned Dashboard so members live inside Spaces
+
+## In Progress
+
+- Member Actions menu
+- Role management
+- Activity timeline

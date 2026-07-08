@@ -82,7 +82,9 @@ export default function DashboardPage() {
       </div>
 
       <section className="mt-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-xl font-semibold tracking-tight">Recent activity</h2>
+        <h2 className="text-xl font-semibold tracking-tight">
+          Recent Activity
+        </h2>
 
         <div className="mt-6 space-y-4 text-sm text-slate-600">
           <p>Workspace created</p>

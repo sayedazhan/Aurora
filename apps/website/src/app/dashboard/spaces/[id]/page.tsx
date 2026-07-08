@@ -5,10 +5,6 @@ import { useParams } from "next/navigation";
 import { Calendar, Plus, Users, Wallet } from "lucide-react";
 import { getSpace, type Space } from "@/services/space.service";
 import { useAuth } from "@/hooks/useAuth";
-import InviteMemberForm from "@/features/spaces/components/InviteMemberForm";
-<div className="mt-8">
-  <MemberList />
-</div>
 import MemberList from "@/features/spaces/components/MemberList";
 
 export default function SpacePage() {
@@ -23,13 +19,8 @@ export default function SpacePage() {
     async function loadSpace() {
       const { data, error } = await getSpace(id);
 
-      if (error) {
-        console.error(error);
-      }
-
-      if (data) {
-        setSpace(data);
-      }
+      if (error) console.error(error);
+      if (data) setSpace(data);
 
       setLoading(false);
     }
@@ -37,16 +28,12 @@ export default function SpacePage() {
     loadSpace();
   }, [id]);
 
-  if (loading) {
-    return <div className="p-6">Loading Space...</div>;
-  }
-
-  if (!space) {
-    return <div className="p-6">Space not found.</div>;
-  }
+  if (loading) return <div className="p-6">Loading Space...</div>;
+  if (!space) return <div className="p-6">Space not found.</div>;
 
   return (
     <div className="p-6">
+      {/* Space Header */}
       <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="flex items-center gap-5">
           <div className="text-6xl">{space.emoji}</div>
@@ -75,6 +62,7 @@ export default function SpacePage() {
         </div>
       </div>
 
+      {/* Quick Actions */}
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <button className="rounded-2xl bg-slate-950 p-5 text-white">
           <Plus className="mx-auto mb-3" />
@@ -91,16 +79,23 @@ export default function SpacePage() {
         </button>
       </div>
 
+      {/* Members */}
       {user?.id && (
         <div className="mt-8">
-          <InviteMemberForm spaceId={space.id} invitedBy={user.id} />
+          <MemberList
+            spaceId={space.id}
+            currentUserId={user.id}
+          />
         </div>
       )}
 
+      {/* Bottom Cards */}
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
           <h2 className="text-xl font-semibold">Expenses</h2>
-          <p className="mt-6 text-slate-500">No expenses yet.</p>
+          <p className="mt-6 text-slate-500">
+            No expenses yet.
+          </p>
         </div>
 
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
