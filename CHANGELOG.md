@@ -24,15 +24,17 @@ This project follows a sprint-based development approach.
 - Installed shadcn/ui
 - Built marketing website
 - Built responsive landing page
-- Added:
-  - Hero
-  - Product
-  - AI
-  - Merchant
-  - Security
-  - FAQ
-  - Waitlist
-  - Footer
+
+Added
+
+- Hero
+- Product
+- AI
+- Merchant
+- Security
+- FAQ
+- Waitlist
+- Footer
 
 ## Project
 
@@ -64,7 +66,7 @@ Enabled
 
 Created
 
-- User profile service
+- User Profile Service
 
 ## Authentication
 
@@ -74,7 +76,7 @@ Implemented
 - Login
 - Logout
 - Protected Dashboard
-- User profile loading
+- User Profile Loading
 
 ---
 
@@ -95,7 +97,7 @@ Enabled
 
 Created
 
-- Space service layer
+- Space Service Layer
 
 ## Workspace
 
@@ -121,39 +123,114 @@ Connected
 
 ---
 
-# Sprint 4 – Workspace Redesign
+# Sprint 4 – Workspace Dashboard
 
-**Status:** 🚧 In Progress
+**Status:** ✅ Completed
 
-Completed
+## Dashboard
+
+Built
 
 - Workspace Hero
 - Continue Card
 - Quick Actions
 - Aurora Assist
 - Recent Spaces
-- Dashboard component architecture
-
-Current Progress
-
+- Dashboard Component Architecture
 - Dynamic Workspace
-- Live Space loading
-- Component library
+- Live Space Loading
+- Component Library
 
 ---
 
-# Product Vision
+# Sprint 5 – Member System
 
-Aurora is the operating system for shared financial life.
+**Status:** ✅ Completed
 
-Aurora helps people manage money together across:
+## Database
 
-- Homes
-- Families
-- Trips
-- Clubs
-- Communities
-- Small Businesses
+Updated
+
+- space_members
+- space_activity
+
+Added
+
+- Member Service
+- Activity Service
+
+Configured
+
+- Row Level Security
+- Member Policies
+- Activity Policies
+
+## Members
+
+Implemented
+
+- Member Cards
+- Member Statistics
+- Invite Member Dialog
+- Invite Member Button
+- Member Actions Menu
+- Remove Member
+- Change Role
+- Pending Invitations
+- Empty States
+
+Connected
+
+- Supabase
+- Persistent Members
+- Persistent Invitations
+
+## Activity
+
+Implemented
+
+- Activity Timeline
+- Member Invite Events
+- Member Removal Events
+- Role Change Events
+
+## UX Improvements
+
+Added
+
+- Professional Member Cards
+- Quick Action Navigation
+- Timeline Icons
+- Timeline Empty State
+
+Sprint 5 establishes Aurora's collaborative foundation and prepares the platform for the Expenses engine.
+
+---
+
+# Current MVP Progress
+
+Overall Progress
+
+███████████░░░░░░░░░░ 55%
+
+Completed
+
+- ✅ Marketing Website
+- ✅ Authentication
+- ✅ Workspace
+- ✅ Financial Spaces
+- ✅ Member Management
+- ✅ Activity Timeline
+
+In Progress
+
+- 🚧 Expenses
+
+Planned
+
+- ⬜ Settlements
+- ⬜ Payments
+- ⬜ Merchant Payments
 
 ---
 
@@ -172,6 +249,7 @@ Aurora helps people manage money together across:
 
 - Supabase
 - PostgreSQL
+- Row Level Security
 
 ## Authentication
 
@@ -183,16 +261,20 @@ Aurora helps people manage money together across:
 
 ---
 
-# Architecture
+# Current Architecture
 
-```
+```text
 Website
     ↓
 Authentication
     ↓
 Workspace
     ↓
-Spaces
+Financial Spaces
+    ↓
+Members
+    ↓
+Activity Timeline
     ↓
 Expenses
     ↓
@@ -205,45 +287,33 @@ Payments
 
 # Roadmap
 
-## Sprint 5
-
-### Member System
-
-- Invite Member
-- Member Roles
-- Member Cards
-- Activity Timeline
-
----
-
-## Sprint 6
-
-### Expenses
+## Sprint 6 – Expenses
 
 - Add Expense
-- Split Expense
-- Expense Timeline
+- Equal Split
+- Custom Split
+- Percentage Split
 - Receipt Upload
+- Expense Timeline
+- Outstanding Balances
 
 ---
 
-## Sprint 7
+## Sprint 7 – Settlements
 
-### Settlement
-
-- Outstanding Balances
 - Settlement Engine
 - Payment Requests
+- Debt Simplification
+- Settlement History
 
 ---
 
-## Sprint 8
-
-### Payments
+## Sprint 8 – Payments
 
 - Australian Payment Integration
 - QR Payments
 - Merchant Payments
+- Payment Confirmation
 
 ---
 
@@ -252,6 +322,8 @@ Payments
 Aurora is not a banking application.
 
 Aurora is a collaborative financial platform where people manage money together.
+
+Aurora aims to become the operating system for shared financial life.
 
 ---
 
@@ -262,36 +334,8 @@ Aurora is a collaborative financial platform where people manage money together.
 - AI First
 - Mobile First
 - Secure by Design
-- Collaboration over Transactions
+- Collaboration Over Transactions
 
 ---
 
-_Last Updated: July 2026_
-# Sprint 5 – Member System
-
-**Status:** 🚧 In Progress
-
-## Completed
-
-- Built Member Card component
-- Built Member List component
-- Built Invite Member button
-- Built Invite Member dialog
-- Added first name, last name, email and role invite flow
-- Integrated Members section into Space Dashboard
-- Connected member invitations to Supabase
-- Added persistent pending invitations
-- Updated `space_members` table with:
-  - email
-  - first_name
-  - last_name
-  - status
-  - invited_by
-- Fixed nullable `user_id` for pending invites
-- Cleaned Dashboard so members live inside Spaces
-
-## In Progress
-
-- Member Actions menu
-- Role management
-- Activity timeline
+_Last Updated: August 2026_

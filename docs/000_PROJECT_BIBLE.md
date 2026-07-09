@@ -1,6 +1,6 @@
 # Aurora Master Project Bible
 
-> Version: 1.0
+> Version: 1.1
 >
 > Status: Active Development
 >
@@ -23,11 +23,11 @@ Aurora is designed for:
 - Couples
 - Housemates
 - Clubs
-- Small businesses
+- Small Businesses
 
 Aurora is **not** a bank.
 
-Aurora orchestrates payments and collaboration.
+Aurora orchestrates payments, collaboration and intelligent financial workflows.
 
 ---
 
@@ -62,25 +62,25 @@ Out of scope:
 - Loans
 - Insurance
 - Crypto
-- Business accounting
-- Advanced budgeting
+- Business Accounting
+- Advanced Budgeting
 
 ---
 
 # Product Principles
 
-1. Collaboration first
-2. Payments should be effortless
-3. AI should reduce work
-4. Security by default
-5. Mobile-first experience
-6. Cloud-native architecture
+1. Collaboration First
+2. Payments Should Be Effortless
+3. AI Should Reduce Work
+4. Security By Default
+5. Mobile-First Experience
+6. Cloud-Native Architecture
 
 ---
 
 # Architecture
 
-Frontend
+## Frontend
 
 - Next.js
 - React
@@ -88,17 +88,17 @@ Frontend
 - Tailwind CSS
 - shadcn/ui
 
-Backend
+## Backend
 
 - Supabase
 - PostgreSQL
 - Supabase Auth
 
-Hosting
+## Hosting
 
 - Vercel
 
-Future
+## Future
 
 - Flutter
 - Payment Provider
@@ -108,56 +108,117 @@ Future
 
 # Core Product Modules
 
-Authentication
+Authentication ✅
 
-Workspace
+Workspace ✅
 
-Spaces
+Financial Spaces ✅
 
-Members
+Members ✅
 
-Expenses
+Activity Timeline ✅
 
-Settlements
+Expenses 🚧
 
-Payments
+Settlements ⬜
 
-Aurora Assist
+Payments ⬜
 
-Notifications
+Aurora Assist 🚧
 
-Merchant
+Notifications ⬜
+
+Merchant ⬜
 
 ---
 
 # Current Progress
 
-✅ Marketing Website
+## ✅ Completed
 
-✅ Authentication
+- Marketing Website
+- Authentication
+- User Profiles
+- Workspace Dashboard
+- Financial Spaces
+- Space Dashboard
+- Member Management
+- Invite Member Workflow
+- Role Management
+- Activity Timeline
+- Supabase Integration
+- Member Service Layer
+- Activity Service Layer
+- Row Level Security Policies
 
-✅ Workspace
+## 🚧 In Progress
 
-✅ Spaces
+- Shared Expenses
+- Aurora Assist
 
-🚧 Members
+## ⬜ Planned
 
-⬜ Expenses
-
-⬜ Settlements
-
-⬜ Payments
+- Settlements
+- Payments
+- Merchant Payments
+- Mobile Application
 
 ---
 
 # Engineering Principles
 
-- Feature-based architecture
-- Service layer between UI and database
-- Reusable components
-- Mobile-first
-- Type-safe development
-- Cloud-first
+- Feature-Based Architecture
+- Service Layer Between UI And Database
+- Reusable Components
+- Event-Driven Activity Logging
+- Mobile-First
+- Type-Safe Development
+- Cloud-First
+
+---
+
+# Current Architecture
+
+```text
+Aurora
+
+Website
+    ↓
+Authentication
+    ↓
+Workspace
+    ↓
+Financial Spaces
+    ↓
+Members
+    ↓
+Activity Timeline
+    ↓
+Expenses
+    ↓
+Settlements
+    ↓
+Payments
+```
+
+---
+
+# Database
+
+Current Core Tables
+
+- profiles
+- spaces
+- space_members
+- space_activity
+
+Upcoming
+
+- expenses
+- expense_splits
+- settlements
+- payments
+- notifications
 
 ---
 
@@ -165,7 +226,57 @@ Merchant
 
 Aurora becomes the easiest way for people to send, split and settle money together.
 
-Future phases may expand into broader financial capabilities after the core collaboration experience is proven.
+Aurora is designed to become the operating system for shared financial life.
+
+Future phases may expand into broader financial capabilities after the collaborative finance platform has been proven.
+
+---
+
+# Sprint Status
+
+## Sprint 1
+
+✅ Marketing Website
+
+## Sprint 2
+
+✅ Authentication
+
+## Sprint 3
+
+✅ Financial Spaces
+
+## Sprint 4
+
+✅ Workspace Dashboard
+
+## Sprint 5
+
+✅ Member System
+
+Completed
+
+- Member Cards
+- Invite Member
+- Remove Member
+- Change Role
+- Activity Timeline
+- Member Actions
+- Supabase Integration
+- Persistent Members
+- Activity Logging
+
+## Sprint 6
+
+🚧 Expenses
+
+Upcoming
+
+- Add Expense
+- Split Engine
+- Receipt Upload
+- Outstanding Balances
+- Expense Timeline
 
 ---
 
@@ -200,3 +311,13 @@ This Project Bible links to the following documents:
 013 Decisions
 
 014 Innovation
+
+---
+
+# Aurora Vision
+
+Aurora is building the future operating system for shared money.
+
+People shouldn't have to think about who owes whom.
+
+Aurora handles the complexity so people can focus on life.

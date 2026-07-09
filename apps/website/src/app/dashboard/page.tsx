@@ -15,6 +15,7 @@ import QuickActions from "@/features/dashboard/components/QuickActions";
 import AuroraAssist from "@/features/dashboard/components/AuroraAssist";
 import ContinueCard from "@/features/dashboard/components/ContinueCard";
 import SpaceList from "@/features/dashboard/components/SpaceList";
+import ActivityTimeline from "@/features/spaces/components/ActivityTimeline";
 
 type Profile = {
   id: string;

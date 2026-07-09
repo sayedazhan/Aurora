@@ -6,6 +6,7 @@ import { Calendar, Plus, Users, Wallet } from "lucide-react";
 import { getSpace, type Space } from "@/services/space.service";
 import { useAuth } from "@/hooks/useAuth";
 import MemberList from "@/features/spaces/components/MemberList";
+import ActivityTimeline from "@/features/spaces/components/ActivityTimeline";
 
 export default function SpacePage() {
   const params = useParams();
@@ -14,6 +15,12 @@ export default function SpacePage() {
 
   const [space, setSpace] = useState<Space | null>(null);
   const [loading, setLoading] = useState(true);
+
+  function scrollToMembers() {
+    document
+      .getElementById("members-section")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
 
   useEffect(() => {
     async function loadSpace() {
@@ -33,7 +40,6 @@ export default function SpacePage() {
 
   return (
     <div className="p-6">
-      {/* Space Header */}
       <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
         <div className="flex items-center gap-5">
           <div className="text-6xl">{space.emoji}</div>
@@ -62,14 +68,17 @@ export default function SpacePage() {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <button className="rounded-2xl bg-slate-950 p-5 text-white">
           <Plus className="mx-auto mb-3" />
           Add Expense
         </button>
 
-        <button className="rounded-2xl border border-slate-200 bg-white p-5">
+        <button
+          type="button"
+          onClick={scrollToMembers}
+          className="rounded-2xl border border-slate-200 bg-white p-5"
+        >
           <Users className="mx-auto mb-3" />
           Invite Members
         </button>
@@ -79,7 +88,6 @@ export default function SpacePage() {
         </button>
       </div>
 
-      {/* Members */}
       {user?.id && (
         <div className="mt-8">
           <MemberList
@@ -89,13 +97,14 @@ export default function SpacePage() {
         </div>
       )}
 
-      {/* Bottom Cards */}
+      <div className="mt-8">
+        <ActivityTimeline spaceId={space.id} />
+      </div>
+
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
           <h2 className="text-xl font-semibold">Expenses</h2>
-          <p className="mt-6 text-slate-500">
-            No expenses yet.
-          </p>
+          <p className="mt-6 text-slate-500">No expenses yet.</p>
         </div>
 
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
