@@ -7,6 +7,8 @@ import { getSpace, type Space } from "@/services/space.service";
 import { useAuth } from "@/hooks/useAuth";
 import MemberList from "@/features/spaces/components/MemberList";
 import ActivityTimeline from "@/features/spaces/components/ActivityTimeline";
+import AddExpenseForm from "@/features/expenses/components/AddExpenseForm";
+import ExpenseList from "@/features/expenses/components/ExpenseList";
 
 export default function SpacePage() {
   const params = useParams();
@@ -15,6 +17,17 @@ export default function SpacePage() {
 
   const [space, setSpace] = useState<Space | null>(null);
   const [loading, setLoading] = useState(true);
+  const [expenseRefreshKey, setExpenseRefreshKey] = useState(0);
+
+  function refreshExpenses() {
+    setExpenseRefreshKey((current) => current + 1);
+  }
+
+  function scrollToExpenseForm() {
+    document
+      .getElementById("expense-form")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
 
   function scrollToMembers() {
     document
@@ -69,7 +82,11 @@ export default function SpacePage() {
       </div>
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
-        <button className="rounded-2xl bg-slate-950 p-5 text-white">
+        <button
+          type="button"
+          onClick={scrollToExpenseForm}
+          className="rounded-2xl bg-slate-950 p-5 text-white"
+        >
           <Plus className="mx-auto mb-3" />
           Add Expense
         </button>
@@ -89,23 +106,32 @@ export default function SpacePage() {
       </div>
 
       {user?.id && (
-        <div className="mt-8">
-          <MemberList
+        <div id="expense-form" className="mt-8">
+          <AddExpenseForm
             spaceId={space.id}
-            currentUserId={user.id}
+            paidBy={user.id}
+            participantIds={[user.id]}
+            currency={space.currency || "AUD"}
+            onExpenseCreated={refreshExpenses}
           />
         </div>
       )}
+
+      <div id="members-section" className="mt-8">
+        {user?.id && (
+          <MemberList spaceId={space.id} currentUserId={user.id} />
+        )}
+      </div>
 
       <div className="mt-8">
         <ActivityTimeline spaceId={space.id} />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <div className="rounded-3xl border border-slate-200 bg-white p-6">
-          <h2 className="text-xl font-semibold">Expenses</h2>
-          <p className="mt-6 text-slate-500">No expenses yet.</p>
-        </div>
+        <ExpenseList
+          spaceId={space.id}
+          refreshKey={expenseRefreshKey}
+        />
 
         <div className="rounded-3xl border border-slate-200 bg-white p-6">
           <h2 className="text-xl font-semibold">Aurora AI</h2>
