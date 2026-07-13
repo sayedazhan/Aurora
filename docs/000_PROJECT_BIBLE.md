@@ -1,12 +1,12 @@
 # Aurora Master Project Bible
 
-> Version: 1.1
+> Version: 2.0
 >
 > Status: Active Development
 >
 > Repository: Aurora
 >
-> Last Updated: July 2026
+> Last Updated: July 2026 — Sprint 6 Completed
 
 ---
 
@@ -118,9 +118,9 @@ Members ✅
 
 Activity Timeline ✅
 
-Expenses 🚧
+Expenses ✅
 
-Settlements ⬜
+Settlements 🚧
 
 Payments ⬜
 
@@ -146,6 +146,22 @@ Merchant ⬜
 - Invite Member Workflow
 - Role Management
 - Activity Timeline
+- Shared Expense Engine
+- Expense Service Layer
+- Equal Split Engine
+- Accurate Split Rounding
+- Expense Timeline
+- Expense Details Dialog
+- Outstanding Balances
+- Settlement Progress UI
+- Expense Status Badges
+- Automatic Expense Status
+- Automatic Expense Refresh
+- Member Name Resolution
+- Pending Member Handling
+- Empty States
+- Skeleton Loading
+- Receipt Placeholder
 - Supabase Integration
 - Member Service Layer
 - Activity Service Layer
@@ -153,12 +169,11 @@ Merchant ⬜
 
 ## 🚧 In Progress
 
-- Shared Expenses
+- Settlement Engine
 - Aurora Assist
 
 ## ⬜ Planned
 
-- Settlements
 - Payments
 - Merchant Payments
 - Mobile Application
@@ -194,11 +209,11 @@ Members
     ↓
 Activity Timeline
     ↓
-Expenses
+Expenses ✅
     ↓
-Settlements
+Settlements 🚧
     ↓
-Payments
+Payments ⬜
 ```
 
 ---
@@ -211,11 +226,11 @@ Current Core Tables
 - spaces
 - space_members
 - space_activity
+- expenses
+- expense_splits
 
 Upcoming
 
-- expenses
-- expense_splits
 - settlements
 - payments
 - notifications
@@ -238,17 +253,25 @@ Future phases may expand into broader financial capabilities after the collabora
 
 ✅ Marketing Website
 
+---
+
 ## Sprint 2
 
 ✅ Authentication
+
+---
 
 ## Sprint 3
 
 ✅ Financial Spaces
 
+---
+
 ## Sprint 4
 
 ✅ Workspace Dashboard
+
+---
 
 ## Sprint 5
 
@@ -266,23 +289,69 @@ Completed
 - Persistent Members
 - Activity Logging
 
+---
+
 ## Sprint 6
 
-🚧 Expenses
+✅ Shared Expenses
 
-Upcoming
+Completed
 
 - Add Expense
-- Split Engine
-- Receipt Upload
-- Outstanding Balances
+- Equal Split Engine
+- Accurate Split Rounding
+- Expense Service Layer
 - Expense Timeline
+- Outstanding Balances
+- Paid By Member Labels
+- Member Name Resolution
+- Expense Details Dialog
+- Settlement Progress
+- Expense Status Badges
+- Automatic Expense Status
+- Automatic Expense Refresh
+- Expense Empty State
+- Skeleton Loading
+- Receipt Placeholder
+
+---
+
+## Sprint 7
+
+🚧 Settlement Engine
+
+Planned
+
+- Balance Calculator
+- Net Balance Engine
+- Debt Simplification
+- Settle Up Workflow
+- Settlement History
+- Live Balance Updates
+
+---
+
+## Sprint 8
+
+⬜ Payments
+
+Planned
+
+- Australian Payment Integration
+- QR Payments
+- Merchant Payments
+- Payment Confirmation
 
 ---
 
 # Documentation
 
 This Project Bible links to the following documents:
+
+- CHANGELOG.md
+- README.md
+
+Future Documentation
 
 001 Vision
 
@@ -321,3 +390,68 @@ Aurora is building the future operating system for shared money.
 People shouldn't have to think about who owes whom.
 
 Aurora handles the complexity so people can focus on life.
+
+---
+
+# Current Milestone
+
+## Sprint 6 Completed
+
+Aurora now includes:
+
+- Complete Shared Expense Engine
+- Equal Split Engine
+- Professional Expense Timeline
+- Expense Details Dialog
+- Outstanding Balances
+- Settlement Progress UI
+- Member-aware Expense Experience
+- Modern Expense Workflow
+- Responsive Expense Interface
+
+Sprint 7 will introduce:
+
+- Settlement Engine
+- Balance Calculator
+- Debt Simplification
+- Settle Up Workflow
+- Live Balance Updates
+
+---
+
+# Product Direction
+
+Aurora's MVP development is progressing in four major phases:
+
+### Phase 1 — Foundation ✅
+
+- Authentication
+- Workspace
+- Spaces
+- Members
+
+### Phase 2 — Shared Expenses ✅
+
+- Expense Engine
+- Split Engine
+- Expense Timeline
+- Expense Details
+- Expense Status
+- Outstanding Balances
+
+### Phase 3 — Settlements 🚧
+
+- Settlement Engine
+- Debt Simplification
+- Settle Up
+- Settlement History
+
+### Phase 4 — Payments ⬜
+
+- Payment Integration
+- Merchant Payments
+- AI Financial Assistant
+
+---
+
+Aurora is evolving from a collaborative expense tracker into a collaborative financial operating system.

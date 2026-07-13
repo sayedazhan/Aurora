@@ -35,18 +35,23 @@ Aurora is currently in active MVP development.
 - Member Management
 - Role Management
 - Activity Timeline
+- Shared Expense Engine
+- Expense Details Dialog
+- Equal Split Engine
+- Outstanding Balances
+- Settlement Progress UI
 - Supabase Integration
 
 ## 🚧 In Progress
 
-- Shared Expenses
+- Settlement Engine
 - Aurora Assist
 
 ## ⬜ Planned
 
-- Settlements
 - Payments
 - Merchant Payments
+- Mobile Application
 
 ---
 
@@ -105,9 +110,9 @@ Members
     ↓
 Activity Timeline
     ↓
-Expenses
+Expenses ✅
     ↓
-Settlements
+Settlements 🚧
     ↓
 Payments
 ```
@@ -121,15 +126,18 @@ src/
 
 features/
 ├── dashboard/
-├── spaces/
 ├── expenses/
+│   ├── components/
+│   ├── services/
+│   └── utils/
+├── spaces/
 
 services/
+├── activity.service.ts
 ├── auth.ts
+├── member.service.ts
 ├── profile.ts
 ├── space.service.ts
-├── member.service.ts
-├── activity.service.ts
 
 hooks/
 
@@ -143,7 +151,7 @@ lib/
 
 Overall Progress
 
-███████████░░░░░░░░░░ 55%
+███████████████░░░░░ 75%
 
 Completed
 
@@ -151,38 +159,53 @@ Completed
 - ✅ Authentication
 - ✅ Workspace
 - ✅ Financial Spaces
-- ✅ Member System
+- ✅ Member Management
 - ✅ Activity Timeline
+- ✅ Shared Expense Engine
 
-Next Milestone
+Current Sprint
 
-- 🚧 Expense Engine
+- 🚧 Sprint 7 – Settlement Engine
+
+---
+
+# Sprint 6 Highlights
+
+Completed
+
+- Add Expense
+- Equal Split Engine
+- Accurate Split Rounding
+- Expense Timeline
+- Expense Details Dialog
+- Outstanding Balances
+- Paid By Member Names
+- Settlement Progress
+- Expense Status Badges
+- Automatic Expense Refresh
+- Expense Empty State
+- Skeleton Loading
+- Receipt Placeholder
 
 ---
 
 # Roadmap
 
-## Sprint 6 – Expenses
-
-- Add Expense
-- Equal Split
-- Custom Split
-- Percentage Split
-- Receipt Upload
-- Outstanding Balances
-- Expense Timeline
-
 ## Sprint 7 – Settlements
 
 - Settlement Engine
-- Payment Requests
+- Balance Calculator
 - Debt Simplification
+- Settle Up Workflow
+- Settlement History
+- Live Balance Updates
 
 ## Sprint 8 – Payments
 
 - Australian Payment Integration
 - QR Payments
 - Merchant Payments
+- Payment Confirmation
 
 ---
 
@@ -196,15 +219,30 @@ It helps people organise, split, settle and manage money together with transpare
 
 ---
 
+# Engineering Principles
+
+- Feature-Based Architecture
+- Service Layer Pattern
+- Mobile First
+- Cloud Native
+- Type Safety
+- Secure by Design
+- Reusable Components
+- Event-Driven Activity Logging
+
+---
+
 # Contributing
 
-Aurora is currently under active development using a sprint-based approach.
+Aurora is developed using a sprint-based workflow.
 
-Each sprint is documented in:
+Project documentation:
 
 - `CHANGELOG.md`
 - `000_PROJECT_BIBLE.md`
 
 ---
 
-Built with ❤️ using Next.js, Supabase, PostgreSQL and TypeScript.
+Built with ❤️ using Next.js, React, TypeScript, Supabase and PostgreSQL.
+
+**Current Version:** MVP – Sprint 6 Completed

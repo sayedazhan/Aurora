@@ -9,6 +9,7 @@ import MemberList from "@/features/spaces/components/MemberList";
 import ActivityTimeline from "@/features/spaces/components/ActivityTimeline";
 import AddExpenseForm from "@/features/expenses/components/AddExpenseForm";
 import ExpenseList from "@/features/expenses/components/ExpenseList";
+import BalanceSummary from "@/features/settlements/components/BalanceSummary";
 
 export default function SpacePage() {
   const params = useParams();
@@ -35,12 +36,23 @@ export default function SpacePage() {
       ?.scrollIntoView({ behavior: "smooth" });
   }
 
+  function scrollToBalances() {
+    document
+      .getElementById("balances-section")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }
+
   useEffect(() => {
     async function loadSpace() {
       const { data, error } = await getSpace(id);
 
-      if (error) console.error(error);
-      if (data) setSpace(data);
+      if (error) {
+        console.error(error);
+      }
+
+      if (data) {
+        setSpace(data);
+      }
 
       setLoading(false);
     }
@@ -48,8 +60,13 @@ export default function SpacePage() {
     loadSpace();
   }, [id]);
 
-  if (loading) return <div className="p-6">Loading Space...</div>;
-  if (!space) return <div className="p-6">Space not found.</div>;
+  if (loading) {
+    return <div className="p-6">Loading space...</div>;
+  }
+
+  if (!space) {
+    return <div className="p-6">Space not found.</div>;
+  }
 
   return (
     <div className="p-6">
@@ -71,7 +88,7 @@ export default function SpacePage() {
         <div className="mt-8 flex flex-wrap gap-6 text-sm text-slate-600">
           <div className="flex items-center gap-2">
             <Wallet size={18} />
-            {space.currency}
+            {space.currency || "AUD"}
           </div>
 
           <div className="flex items-center gap-2">
@@ -85,7 +102,7 @@ export default function SpacePage() {
         <button
           type="button"
           onClick={scrollToExpenseForm}
-          className="rounded-2xl bg-slate-950 p-5 text-white"
+          className="rounded-2xl bg-slate-950 p-5 text-white transition hover:bg-slate-800"
         >
           <Plus className="mx-auto mb-3" />
           Add Expense
@@ -94,19 +111,24 @@ export default function SpacePage() {
         <button
           type="button"
           onClick={scrollToMembers}
-          className="rounded-2xl border border-slate-200 bg-white p-5"
+          className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:bg-slate-50"
         >
           <Users className="mx-auto mb-3" />
           Invite Members
         </button>
 
-        <button className="rounded-2xl border border-slate-200 bg-white p-5">
+        <button
+          type="button"
+          onClick={scrollToBalances}
+          className="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:bg-slate-50"
+        >
+          <Wallet className="mx-auto mb-3" />
           Settle Up
         </button>
       </div>
 
       {user?.id && (
-        <div id="expense-form" className="mt-8">
+        <div id="expense-form" className="mt-8 scroll-mt-6">
           <AddExpenseForm
             spaceId={space.id}
             paidBy={user.id}
@@ -117,14 +139,11 @@ export default function SpacePage() {
         </div>
       )}
 
-      <div id="members-section" className="mt-8">
-        {user?.id && (
-          <MemberList spaceId={space.id} currentUserId={user.id} />
-        )}
-      </div>
-
-      <div className="mt-8">
-        <ActivityTimeline spaceId={space.id} />
+      <div id="balances-section" className="mt-8 scroll-mt-6">
+        <BalanceSummary
+          spaceId={space.id}
+          refreshKey={expenseRefreshKey}
+        />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
@@ -133,12 +152,26 @@ export default function SpacePage() {
           refreshKey={expenseRefreshKey}
         />
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-6">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
           <h2 className="text-xl font-semibold">Aurora AI</h2>
+
           <p className="mt-6 text-slate-500">
             Ready to help organise this space.
           </p>
         </div>
+      </div>
+
+      <div className="mt-8">
+        <ActivityTimeline spaceId={space.id} />
+      </div>
+
+      <div id="members-section" className="mt-8 scroll-mt-6">
+        {user?.id && (
+          <MemberList
+            spaceId={space.id}
+            currentUserId={user.id}
+          />
+        )}
       </div>
     </div>
   );
